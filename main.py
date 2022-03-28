@@ -8,10 +8,10 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
 nlp = en_core_web_lg.load()
-newsapi = NewsApiClient(api_key='9136c62f61b14708acdd3a21dc7e6546')
+newsapi = NewsApiClient(api_key='d80967e949df4e978089e20e99df8b15')
 
-DATE1 = '2022-02-27'
-DATE2 = '2022-03-27'
+DATE1 = '2022-02-28'
+DATE2 = '2022-03-26'
 
 def getSomething(x):
     temp = newsapi.get_everything(q='coronavirus', language='en',
@@ -46,14 +46,11 @@ df = pd.DataFrame(dados)
 df = df.dropna()
 df.head()
 
-
 results = []
 for content in df.content.values:
     results.append([('#' + x[0]) for x in Counter(get_keywords_eng(content)).most_common(5)])
 
 df['keywords'] = results
-
-text = str(results)
 
 wordcloud = WordCloud(max_font_size=50, max_words=100, background_color="white").generate(text)
 plt.figure()
